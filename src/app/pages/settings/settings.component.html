@@ -1,0 +1,39 @@
+<h1>Settings</h1>
+<div class="container-xs">
+  <form (ngSubmit)="submitForm()" [formGroup]="settingsForm">
+    <div class="form-group">
+      <div class="row">
+
+        <label for="f1" class="control-label col-sm-2">Client Id:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text" id="f1" formControlName="clientId" value="{{ settingsForm.controls['clientId'].value }}">
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="field2" class="control-label col-sm-2">Secret:</label>
+        <div class="col-sm-10">
+          <input class="form-control" type="text"  id="field2" formControlName="clientSecret" value="{{ settingsForm.controls['clientSecret'].value }}">
+        </div>
+      </div>
+
+      <div class="row">
+        <label for="field3" class="control-label col-sm-2">AuthUrl:</label>
+        <div class="col-sm-10">
+          <input class="form-control"type="text" id="field3" formControlName="authUrl" value="{{ settingsForm.controls['authUrl'].value }}">
+        </div>
+      </div>
+      <div class="row">
+        <label for="field4" class="control-label col-sm-2">Base URL:</label>
+        <div class="col-sm-10">
+          <input class="form-control"type="text" id="field4" formControlName="baseUrl" value="{{ settingsForm.controls['baseUrl'].value }}">
+        </div>
+      </div>      
+      <div class="row">
+        <div class="col-sm-12">
+          <button type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

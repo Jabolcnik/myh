@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { SettingsService } from 'src/app/pages/settings/settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private clientId = environment.auth.clientId;
-  private clientSecret = environment.auth.clientSecret;
-  private tokenUrl = environment.auth.authServerUrl;
+  
+  private clientId: string;
+  private clientSecret: string;
+  private tokenUrl: string;
 
   private accessToken: string | undefined;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private settingsSvc: SettingsService) { 
+      const settings = this.settingsSvc.getData();
+      this.clientId = settings.clientId;
+      this.clientSecret = settings.clientSecret;
+      this.tokenUrl = settings.authUrl;
+  }
 
   getAccessToken(): Observable<any> {
 
