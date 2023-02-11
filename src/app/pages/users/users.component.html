@@ -1,0 +1,79 @@
+<!-- grid.component.html -->
+<div class="container mt-5">
+  <div class="form-group">
+    <button class="btn btn-primary" (click)="openModal(modalData)">Add new user</button>
+  </div>
+  <div class="form-group" [formGroup]="searchForm">
+    <input type="text" class="form-control" formControlName="searchTerm" placeholder="Search">
+    <button type="button" class="btn btn-primary" (click)="onSearch()">Search</button>
+  </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--| search:searchTerm -->
+      <tr *ngFor="let item of usersData | paginate: { itemsPerPage: 25, currentPage: page }">
+        <td>{{item.Id}}</td>
+        <td>{{item.FirstName}}</td>
+        <td>{{item.LastName}}</td>
+        <td>{{item.Email}}</td>
+        <td>
+          <button class="btn btn-primary" (click)="enterAbsence(item.Id)">Enter Absence</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+</div>
+
+
+
+<ng-template #modalData let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Enter New User Information</h5>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form" [formGroup]="userForm">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" #firstName formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
+        <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+          <div *ngIf="f['firstName'].errors['required']">First name is required.</div>
+          <div *ngIf="f['firstName'].errors['minlength']">First name is too short.</div>
+          <div *ngIf="f['firstName'].errors['maxlength']">First name is too long.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" #lastName formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
+        <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+          <div *ngIf="f['lastName'].errors['required']">Last name is required.</div>
+          <div *ngIf="f['lastName'].errors['minlength']">Last name is too short.</div>
+          <div *ngIf="f['lastName'].errors['maxlength']">Last name is too long.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" #email name="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">Email is required.</div>
+          <div *ngIf="f['email'].errors['pattern']">Entered email is not valid.</div>
+        </div>        
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="onReset()" class="btn btn-warning float-right">Reset</button>
+    <button type="button" class="btn btn-primary" (click)="addUser()">Add User</button>
+  </div>
+</ng-template>
