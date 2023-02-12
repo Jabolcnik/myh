@@ -10,6 +10,12 @@ export const environment = {
     users: {
       base: '/api/v1/Users',
       query:'/api/v1/Users/Query'
+    },
+    absences: {
+      base: '/api/v1/Absences'
+    },
+    codelists: {
+      absenceDefinition: '/api/v1/AbsenceDefinitions' 
     }
   }
 };

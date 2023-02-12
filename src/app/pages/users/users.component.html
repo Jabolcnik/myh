@@ -4,7 +4,7 @@
     <button class="btn btn-primary" (click)="openModal(modalData)">Add new user</button>
   </div>
   <div class="form-group" [formGroup]="searchForm">
-    <input type="text" class="form-control" formControlName="searchTerm" placeholder="Search">
+    <input type="text" class="form-control" formControlName="searchTerm" placeholder="Enter users first name or lastname">
     <button type="button" class="btn btn-primary" (click)="onSearch()">Search</button>
   </div>
   <table class="table table-bordered table-striped">
@@ -44,7 +44,8 @@
     <form class="form" [formGroup]="userForm">
       <div class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" class="form-control" #firstName formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
+        <input type="text" class="form-control" #firstName formControlName="firstName"
+          [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
         <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
           <div *ngIf="f['firstName'].errors['required']">First name is required.</div>
           <div *ngIf="f['firstName'].errors['minlength']">First name is too short.</div>
@@ -53,7 +54,8 @@
       </div>
       <div class="form-group">
         <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" #lastName formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
+        <input type="text" class="form-control" #lastName formControlName="lastName"
+          [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
         <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
           <div *ngIf="f['lastName'].errors['required']">Last name is required.</div>
           <div *ngIf="f['lastName'].errors['minlength']">Last name is too short.</div>
@@ -62,16 +64,56 @@
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" #email name="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+        <input type="email" class="form-control" #email name="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
         <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
           <div *ngIf="f['email'].errors['required']">Email is required.</div>
           <div *ngIf="f['email'].errors['pattern']">Entered email is not valid.</div>
-        </div>        
+        </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
     <button type="button" (click)="onReset()" class="btn btn-warning float-right">Reset</button>
     <button type="button" class="btn btn-primary" (click)="addUser()">Add User</button>
+  </div>
+</ng-template>
+
+
+<ng-template #modalAbsenceData let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Enter Absence information</h5>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="absenceForm">
+      <div class="form-group py-2">
+        <label for="userId">UserId</label>
+        <input type="text" class="form-control" #userId name="userId" formControlName="userId"
+          [ngClass]="{ 'is-invalid': submitted && fa['userId'].errors }" [disabled]="true">
+        <div *ngIf="submitted && f['userId'].errors" class="invalid-feedback">
+          <div *ngIf="f['userId'].errors['required']">User Id is required.</div>
+        </div>
+      </div>
+      <div class="form-group py-2">
+        <label for="reason">Reason</label>
+        <select class="form-control" formControlName="reason" [ngClass]="{ 'is-invalid': submitted && fa['reason'].errors }">
+          <option [ngValue]="null" disabled>Select Type</option>
+          <option *ngFor="let absD of absenceDefinitions" [ngValue]="absD.Id">{{absD.Name}}</option>
+        </select>
+        <div *ngIf="submitted && fa['reason'].errors" class="invalid-feedback">
+          <div *ngIf="fa['reason'].errors['required']">Last name is required.</div>
+        </div>
+      </div>
+
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="onResetAbsence()" class="btn btn-warning float-right">Reset</button>
+    <button type="submit" (click)="submitAbsence()" class="btn btn-primary">Add absence</button>
   </div>
 </ng-template>
