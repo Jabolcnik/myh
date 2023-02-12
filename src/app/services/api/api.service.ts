@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { flatMap, Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { environment } from 'src/environments/environment';
+import { SettingsService } from 'src/app/pages/settings/settings.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = environment.apiBaseUrl;
+ 
+  private apiUrl = '';
   private token = null;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(
+    private http: HttpClient, 
+    private authService: AuthService,
+    private settingsSvc: SettingsService) {
+      const settings = this.settingsSvc.getData();
+      this.apiUrl = settings.baseUrl;
    }
 
   get(path: string): Observable<any> {

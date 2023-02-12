@@ -1,9 +1,6 @@
-import { HttpClient } from "@angular/common/http";
-import { Component, OnInit, TemplateRef, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { ApiService } from "src/app/services/api/api.service";
-
 import { UsersService } from "./users.service";
 
 @Component({
