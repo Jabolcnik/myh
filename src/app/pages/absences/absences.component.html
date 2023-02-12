@@ -1,0 +1,38 @@
+<h1>Absences</h1>
+<div class="container-xs">
+  <div class="row">
+    <div class="col-12 text-right">
+      <input type="text" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateSelect($event)"/><button (click)="d.toggle()">Select date</button>
+    </div>
+  </div>
+  <div class="row py-2" *ngIf="absenceData && absenceData.length > 0">
+    <div class="col-12">
+      <h2>List of absences on selected date:</h2>
+    </div>
+  </div>
+
+  <div class="row"  *ngIf="absenceData && absenceData.length == 0">
+    <div class="col-12">
+      There are no absences on selected date. Pick another date.
+    </div>
+  </div>
+  <div class="row" *ngIf="absenceData && absenceData.length > 0">
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Employee</th>
+        <th>Absence reason</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of absenceData | paginate: { itemsPerPage: 25, currentPage: page }">
+        <td>{{item.Id}}</td>
+        <td>{{item.FirstName}} {{item.MiddleName}} {{item.LastName}}</td>
+        <td>{{item.AbsenceDefinitionName}}</td>
+      </tr>
+    </tbody>
+    </table>
+    <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+  </div>
+</div>

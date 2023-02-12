@@ -9,13 +9,15 @@ import { UsersComponent } from './pages/users/users.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { AbsencesComponent } from './pages/absences/absences.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     SettingsComponent,
-    UsersComponent
+    UsersComponent,
+    AbsencesComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
     HttpClientModule,
     NgxPaginationModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
   ],
   providers: [
   ],
