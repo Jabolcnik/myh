@@ -62,7 +62,7 @@ export class UsersComponent implements OnInit {
     reason: new FormControl('', [
       Validators.required
     ]),
-    userId: new FormControl('x', [
+    userId: new FormControl('', [
       Validators.required
     ])
   });
@@ -98,7 +98,6 @@ export class UsersComponent implements OnInit {
   }
 
   enterAbsence(id: string) {
-    console.log('Enter Absence button was clicked', id);
     this.absenceForm.controls['userId'].setValue(id);
     this.openModal(this.modalAbsenceData);
   }
@@ -135,21 +134,17 @@ export class UsersComponent implements OnInit {
 
     if (!this.userForm.valid) 
       return;
-    // console.log(this.userForm);
 
     const usr: any = {
       FirstName: this.userForm.value.firstName,
       LastName: this.userForm.value.lastName,
       Email: this.userForm.value.email
     }
-
-    // console.log('user', usr);
     
     this.usersService.addUser(usr).subscribe((data) => {
       this.userForm.reset();
       this.modalService.dismissAll(); //not good solution
     });
-    // this.userForm.reset();
   }
 
   onReset() {
@@ -161,7 +156,6 @@ export class UsersComponent implements OnInit {
   }
 
   submitAbsence() {
-    console.log('absence');
     if (!this.absenceForm.valid) 
       return;
 
