@@ -5,20 +5,6 @@
 
 export const environment = {
   production: false,
-  auth: {
-    authServerUrl: 'https://login.allhours.com/connect/token',
-    clientId: 'gNa0rGEkFYcBrU8qAevzCzPZe',
-    clientSecret: 'ia1QN38I0TMMX1BdZ3yKhSVswtXCzxqP5UTNpgOzlxJBvCui5z',
-  },
-  notification: {
-    toastr: true,
-    console: {
-      showErrors: true,
-      showInfo: true,
-      showDebug: true,
-      showWarn: true
-    }
-  },
   apiBaseUrl: 'https://api4.allhours.com',
   apis: {
     users: {
