@@ -21,7 +21,6 @@ export class AbsencesComponent implements OnInit {
   }
 
   public onDateSelect(selectedDate: NgbDate) {
-    console.log (selectedDate);
     this.absenceSvc.getAbsencesData(selectedDate);
   }
 

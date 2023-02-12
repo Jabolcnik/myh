@@ -2,7 +2,7 @@
 <div class="container-xs">
   <div class="row">
     <div class="col-12 text-right">
-      <input type="text" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateSelect($event)"/><button (click)="d.toggle()">Select date</button>
+      <input type="text" ngbDatepicker #d="ngbDatepicker" (dateSelect)="onDateSelect($event)"/><button (click)="d.toggle()">Select date in past</button>
     </div>
   </div>
   <div class="row py-2" *ngIf="absenceData && absenceData.length > 0">

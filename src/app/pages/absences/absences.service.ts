@@ -16,13 +16,12 @@ export class AbsencesService {
 
     const q: any = {
       dateFrom: formatDate(new Date(date.year, date.month, date.day), 'yyyy-MM-dd', 'en-US'),
-      dateTo: formatDate(new Date(date.year, date.month, date.day+1), 'yyyy-MM-dd', 'en-US'),
+      // dateTo: formatDate(new Date(date.year, date.month, date.day+1), 'yyyy-MM-dd', 'en-US'),
     };
     
     const qs = '?' + new URLSearchParams(q).toString();
 
     this.api.get(`${env.apis.absences.base}${qs}`).subscribe(data => {
-      console.log(data);
       this.absenceData.next(data);
     });
   }

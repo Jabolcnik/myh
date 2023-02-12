@@ -39,8 +39,6 @@ export class SettingsComponent implements AfterViewInit {
       return;
     }
     const val = this.settingsForm.value;
-    console.log(this.settingsForm.controls['clientSecret'].value);
-    console.log(val);
     const settingsData = new SettingsModel(
       val.clientId, 
       val.clientSecret, 
