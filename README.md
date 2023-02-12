@@ -10,4 +10,3 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Runinng first time
 Go to `http://localhost:4200/settings` enter security details and you will be forwarded to next page
-
