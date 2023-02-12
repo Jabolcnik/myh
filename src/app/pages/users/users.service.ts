@@ -19,13 +19,11 @@ export class UsersService  {
       const qs = '?' + new URLSearchParams(q).toString()
 
       this.api.get(`${env.apis.users.query}${qs}`).subscribe(data => {
-        console.log(data);
         this.usersData.next(data);
       });
       
     } else {
       this.api.get(`${env.apis.users.base}`).subscribe(data => {
-        console.log(data);
         this.usersData.next(data);
       });
     }
