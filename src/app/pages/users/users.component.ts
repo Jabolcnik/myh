@@ -1,7 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { AbsenceDefinition } from "src/app/models/absenceDefinition.interface";
+import { CodelistsService } from "src/app/services/codelists/codelists.service";
 import { UsersService } from "./users.service";
+
 
 @Component({
   selector: 'app-users-component',
@@ -16,14 +19,13 @@ import { UsersService } from "./users.service";
   `]
   })
 export class UsersComponent implements OnInit {
-  
+  @ViewChild('modalAbsenceData') modalAbsenceData: any;
   public usersData: any;
   public searchTerm: '' | undefined;
   page: number = 1;
   
   public closeModal: string = '';
   public modalData: string = '';
-
 
   public firstName: string | undefined;
   public lastName: string | undefined;
@@ -56,8 +58,20 @@ export class UsersComponent implements OnInit {
     })
   });
   
+  public absenceForm: FormGroup = new FormGroup({
+    reason: new FormControl('', [
+      Validators.required
+    ]),
+    userId: new FormControl('x', [
+      Validators.required
+    ])
+  });
+
+  absenceDefinitions: AbsenceDefinition[] = [];
+  
   constructor(
     private usersService: UsersService,
+    private codelistsSvc: CodelistsService,
     private modalService: NgbModal) {
     
   }
@@ -68,6 +82,10 @@ export class UsersComponent implements OnInit {
   
   ngOnInit(): void {
 
+    this.codelistsSvc.absenceDefinitions.subscribe((data) => {
+      this.absenceDefinitions = data;
+    });
+    
     this.usersService.usersData.subscribe((data) => {
         this.usersData = data ? data : null;
     })
@@ -81,10 +99,12 @@ export class UsersComponent implements OnInit {
 
   enterAbsence(id: string) {
     console.log('Enter Absence button was clicked', id);
+    this.absenceForm.controls['userId'].setValue(id);
+    this.openModal(this.modalAbsenceData);
   }
 
-  openModal(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+  openModal(template: TemplateRef<any>) {
+    this.modalService.open(template, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
     }, (res) => {
       this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
@@ -134,5 +154,26 @@ export class UsersComponent implements OnInit {
 
   onReset() {
     this.userForm.reset();
+  }
+
+  get fa(): { [key: string]: AbstractControl } {
+    return this.absenceForm.controls;
+  }
+
+  submitAbsence() {
+    console.log('absence');
+    if (!this.absenceForm.valid) 
+      return;
+
+    this.usersService.addUserAbsence(this.absenceForm.value).subscribe((data) => {
+      
+      this.absenceForm.reset();
+      this.modalService.dismissAll(); //not good solution
+      alert('Absence added');
+    });
+  }
+
+  onResetAbsence() {
+    this.absenceForm.reset();
   }
 }

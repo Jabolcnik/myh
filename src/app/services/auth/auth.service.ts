@@ -34,7 +34,6 @@ export class AuthService {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
-      // 'Authorization': 'Basic ' + btoa(this.clientId + ':' + this.clientSecret)
     });
 
     const body = new URLSearchParams();
